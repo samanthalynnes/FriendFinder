@@ -4,12 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Friend Finder</title>
-    <!-- Latest compiled and minified CSS & JS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
-
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 
 </head>
 
@@ -19,9 +26,17 @@
     <div class="container">
 
         <h1>Find Your Best Matched Friend!</h1>
-
+        <br>
         <h2>Survey Questions</h2>
-
+        <br>
+        <h4>About You</h4>
+        <br>
+        <h5>Name (Required)</h5>
+        <input type="text" id="name" class="form-control">
+        <br>
+        <h5>Link to Photo Image</h5>
+        <input type="text" id="photo" class="form-control">
+        <br>
         <h4>Question 1</h4>
 
         <h5>You would consider yourself a work-a-holic.</h5>
@@ -155,49 +170,79 @@
         <br>
         <br>
 
-        <button type="button" class="btn btn-secondary btn-lg"> Submit </button>
-
-        <!-- <select class="chosen-select" id="q1" style="display: none;">
-            <option value></option>
-            <option value="1">1 (Strongly Disagree)</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5 (Strongly Agree)</option>
-        </select>
-        <div class="chosen-container chosen-container-single" style="width: 157px;" title id="q1_chosen">
-            <a class="chosen-single chosen-default">
-                <span>Select an Option</span>
-                <div>
-                    <b></b>
-                </div>
-            </a>
-            <div class="chosen-drop">
-                <div class="chosen-search">
-                    <input type="text" autocomplete="off">
-                </div>
-                <ul class="chosen-results">
-                    <li class="active-result" data-option-array-index="1" style>
-                        1 (Strongly Disagree)</li>
-                    <li class="active-result" data-option-array-index="2" style>2</li>
-                    <li class="active-result" data-option-array-index="3" style>3</li>
-                    <li class="active-result" data-option-array-index="4" style>4</li>
-                    <li class="active-result" data-option-array-index="5" style>
-                        5 (Strongly Agree</li>
-                </ul>
-            </div>
-        </div> -->
+        <button type="submit" id="submit" class="btn btn-secondary btn-lg submit"> Submit </button>
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+
+    <div id="resultModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;
+                    </button>
+                    <h2 class="modal-title"><strong>Your New Best Friend!</strong></h2>
+                </div>
+                <div class="modal-body">
+                    <h2 id="matchName"></h2>
+                    <img id="matchPhoto" src="https://via.placeholder.com/400x400"
+                        alt="Placeholder image in case user pic doesn't show">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $("#submit").on("click", function (event) {
+            event.preventDefault();
+            // Form validation
+            function validate() {
+                var isValid = true;
+                $('.form-control').each(function () {
+                    if ($(this).val() === "") {
+                        isValid = false;
+                    }
+                });
+                return isValid;
+            }
+
+            if (validate() === true) {
+
+                var newFriend = {
+                    name: $('#name').val().trim(),
+                    photo: $('#photo').val().trim(),
+                    scores: [
+                        $('#q1').val(),
+                        $('#q2').val(),
+                        $('#q3').val(),
+                        $('#q4').val(),
+                        $('#q5').val(),
+                        $('#q6').val(),
+                        $('#q7').val(),
+                        $('#q8').val(),
+                        $('#q9').val(),
+                        $('#q10').val(),
+                    ]
+                };
+
+                console.log(newFriend);
+
+                $.post("/api/friends", newFriend, function (data) {
+                    $('#matchName').text(data.name);
+                    $('#matchPhoto').attr("src", data.photo);
+                    $('#resultModal').modal('toggle');
+                    console.log(data.name);
+                    $('#name').val('');
+                    $('#photo').val('');
+                    $('.chosen-select').val('');
+                });
+            } else alert('You must complete every field!');
+        })
+    </script>
 
 </body>
+
+</html>
