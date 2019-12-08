@@ -18,12 +18,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
 </head>
 
 <body>
 
-    <!-- 1. Your survey should have 10 questions of your choosing. Each answer should be on a scale of 1 to 5 based on how much the user agrees or disagrees with a question. -->
     <div class="container">
 
         <h1>Find Your Best Matched Friend!</h1>
@@ -38,6 +36,7 @@
         <h5>Link to Photo Image</h5>
         <input type="text" id="photo" class="form-control">
         <br>
+        <!-- survey questions -->
         <h4>Question 1</h4>
 
         <h5>You would consider yourself a work-a-holic.</h5>
@@ -170,12 +169,11 @@
 
         <br>
         <br>
-
+        <!-- submit button -->
         <button type="submit" id="submit" class="btn btn-secondary btn-lg submit"> Submit </button>
-
     </div>
 
-
+    <!-- results modal to pop up with results -->
     <div id="resultModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -186,8 +184,7 @@
                 </div>
                 <div class="modal-body">
                     <h2 id="matchName"></h2>
-                    <img id="matchPhoto" src="https://via.placeholder.com/400x400"
-                        alt="Placeholder image in case user pic doesn't show">
+                    <img id="matchPhoto">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -195,7 +192,7 @@
             </div>
         </div>
     </div>
-
+    <!-- submit kicks off functions -->
     <script type="text/javascript">
         $("#submit").on("click", function (event) {
             event.preventDefault();
@@ -209,9 +206,8 @@
                 });
                 return isValid;
             }
-
             if (validate() === true) {
-
+                // create new friend data
                 var newFriend = {
                     name: $('#name').val().trim(),
                     photo: $('#photo').val().trim(),
@@ -230,16 +226,18 @@
                 };
 
                 console.log(newFriend);
-
+                // post to the friends api and push info to the modal popup
                 $.post("/api/friends", newFriend, function (data) {
                     $('#matchName').text(data.name);
                     $('#matchPhoto').attr("src", data.photo);
                     $('#resultModal').modal('toggle');
                     console.log(data.name);
+                    // clear form fields
                     $('#name').val('');
                     $('#photo').val('');
                     $('.chosen-select').val('');
                 });
+                // if not every field is filled out - display an alert
             } else alert('You must complete every field!');
         })
     </script>

@@ -1,24 +1,23 @@
-
+// Dependencies
 
 var path = require('path');
 var friends = require("../data/friends");
 
 module.exports = function (app) {
 
-
+    // GET route that will display a JSON of all possible friends
     app.get("/api/friends", function (req, res) {
         res.json(friends);
     });
 
-
-
+    // POST route for incoming survey results and calculate results
     app.post("/api/friends", function (req, res) {
 
         friends.push(req.body);
 
-        var currentScore = req.body.scores;
+        var newScore = req.body.scores;
 
-        var bestFriend = 0;
+        var match = 0;
 
         var lowestScore = 50;
 
@@ -27,14 +26,14 @@ module.exports = function (app) {
             var totalDifference = 0;
 
             for (var j = 0; j < currentScore.length; j++) {
-                var difference = Math.abs(parseInt(currentScore[j]) - parseInt(compare[j]));
+                var difference = Math.abs(parseInt(newScore[j]) - parseInt(compare[j]));
                 totalDifference = totalDifference + difference;
             }
             if (totalDifference < lowestScore) {
                 lowestScore = totalDifference;
-                bestFriend = i;
+                match = i;
             }
         }
-        res.send(friends[bestFriend]);
+        res.send(friends[match]);
     });
 };
