@@ -1,0 +1,23 @@
+{
+  "name": "friendfinder",
+  "version": "1.0.0",
+  "description": "Welcome to my Friend Finder app.  It's purpose is to match you with a friend with your same interests.  Just fill out a short survey and it will calculate your results and show you the name and photo of your match.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samanthalynnes/FriendFinder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samanthalynnes/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/samanthalynnes/FriendFinder#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
