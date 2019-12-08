@@ -16,7 +16,7 @@ var friends = [{
 },
 {
     "name": "Frank the Tank",
-    "photo": "https://i.pinimg.com/originals/1d/6f/14/1d6f14fc12b2eabd4eec6d0b1a28c380.jpg",
+    "photo": "http://www.quickmeme.com/img/72/72d9f6be001dbdad1226b7092a5f377f6d8bcf320314d2f62f789f72afa68323.jpg",
     "scores": [1, 5, 3, 4, 5, 2, 2, 2, 1, 1]
 },
 {
