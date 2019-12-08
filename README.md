@@ -18,7 +18,7 @@ Welcome to my Friend Finder app.  It's purpose is to match you with a friend wit
 
 -Click submit and your results will be displayed!
 
-<img src="./app/images/result2" width="100" height="100"> ![Results image](./app/images/result3.png) 
+![Results image](./app/images/result2.png =250x250) ![Results image](./app/images/result3.png) 
 
 -You can also see the api list of friend options
 
